@@ -11,9 +11,25 @@ import ProjectDetail from "../components/ProjectDetail"
 import AnimatedBackground from "../components/AnimatedBackground"
 import { ThemeProvider } from "../components/ThemeProvider"
 
+interface Project {
+  id: number
+  title: string
+  category: string
+  description: string
+  image: string
+  tags: string[]
+  client: string
+  timeline: string
+  role: string
+  overview: string
+  features: string[]
+  technologies: string[]
+  gallery: string[]
+}
+
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home") // Default to home
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   const handleSetActiveSection = (sectionId: string) => {
     setActiveSection(sectionId)
