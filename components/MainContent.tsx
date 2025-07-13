@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import ExperienceSection from "./sections/ExperienceSection"
-import CredentialsSection from "./sections/CredentialsSection"
-import SkillsSection from "./sections/SkillsSection"
-import ProjectsSection from "./sections/ProjectsSection"
+import ExperienceSection from "./ExperienceSection"
+import CredentialsSection from "./CredentialsSection"
+import SkillsSection from "./SkillsSection"
+import ProjectsSection from "./ProjectsSection"
 
 export default function MainContent() {
   return (
@@ -38,7 +38,7 @@ export default function MainContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
       >
-        <ProjectsSection />
+        <ProjectsSection onProjectClick={() => {}} />
       </motion.div>
     </main>
   )
