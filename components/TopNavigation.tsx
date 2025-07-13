@@ -9,9 +9,10 @@ interface TopNavigationProps {
   setActiveSection: (section: string) => void
 }
 
+const roles = ["UI/UX Designer", "Software Developer", "Graphics Designer"]
+
 export default function TopNavigation({ activeSection, setActiveSection }: TopNavigationProps) {
   const { theme, toggleTheme } = useTheme()
-  const roles = ["UI/UX Designer", "Software Developer", "Graphics Designer"]
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState("")
   const [isDeleting, setIsDeleting] = useState(false)

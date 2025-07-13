@@ -10,10 +10,6 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   // Optimize bundle size
   compress: true,
-  // Enable experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
 };
 
 export default nextConfig;
