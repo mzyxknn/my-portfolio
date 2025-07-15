@@ -10,7 +10,7 @@ export default function ExperienceSection() {
       company: "SWRTech",
       period: "January 2025 - May 2025",
       description:
-        "Designed visual assets for A/B testing during a social media campaign, then created the final visuals for Facebook and Instagram based on performance insights. Completed two UI design challenges for mobile and tablet to improve my structured design process. Developed internal branding materials, and contributed to mobile and web UI designs for the internal product, Projectflow.",
+        "Designed visual assets for A/B testing during a social media campaign, then created the final visuals for Facebook and Instagram based on performance insights. Completed two UI design challenges for mobile and tablet to improve my structured design process. Developed internal branding materials, and contributed to mobile and web UI designs for the company's internal product, Projectflow.",
       achievements: [
         "Designed wireframes, prototypes, and core mobile/web pages including landing, workflow, and navigation screens for the internal product Projectflow.",
         "Designed visual assets for A/B testing and visual design for the actual posting for Facebook and Instagram campaigns.",

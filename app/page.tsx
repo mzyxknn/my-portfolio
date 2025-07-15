@@ -1,5 +1,6 @@
 "use client"
-import { useState } from "react"
+import { useState, useRef } from "react"
+import { useScrollspy } from "../lib/utils"
 import TopNavigation from "../components/TopNavigation"
 import MobileNavigation from "../components/MobileNavigation"
 import Sidebar from "../components/Sidebar"
@@ -28,22 +29,55 @@ interface Project {
 }
 
 export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState("home") // Default to home
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [manualActiveSection, setManualActiveSection] = useState<string | null>(null)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  
+  // Define section IDs for scrollspy
+  const sectionIds = ["experience", "credentials", "skills", "projects"]
+  
+  // Use scrollspy hook to automatically detect active section
+  const scrollspyActiveSection = useScrollspy(sectionIds)
+  
+  // Use manual selection if available, otherwise use scrollspy
+  const activeSection = manualActiveSection || scrollspyActiveSection
 
   const handleSetActiveSection = (sectionId: string) => {
-    setActiveSection(sectionId)
-    let targetElement: HTMLElement | null = null
-
+    // Set manual active section immediately
+    setManualActiveSection(sectionId)
+    
+    // Clear any existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+    }
+    
     if (sectionId === "home") {
-      // Scroll to the very top of the main content area, which includes the sidebar
-      targetElement = document.getElementById("main-content-wrapper")
-    } else {
-      targetElement = document.getElementById(sectionId)
+      // Scroll to the very top smoothly
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      
+      // After scrolling to top, let scrollspy take over (it will return "experience")
+      scrollTimeoutRef.current = setTimeout(() => {
+        setManualActiveSection(null)
+      }, 800)
+      return
     }
 
+    const targetElement = document.getElementById(sectionId)
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" })
+      // Get the top navigation height to account for sticky header
+      const topNavHeight = 72 // Approximate height of top navigation
+      const elementTop = targetElement.offsetTop - topNavHeight - 20 // 20px extra margin
+      
+      // Smooth scroll to the calculated position
+      window.scrollTo({
+        top: elementTop,
+        behavior: "smooth"
+      })
+      
+      // Clear manual selection after scroll completes
+      scrollTimeoutRef.current = setTimeout(() => {
+        setManualActiveSection(null)
+      }, 800)
     }
   }
 
@@ -76,17 +110,17 @@ export default function Portfolio() {
               </div>
               {/* Main content area - all sections rendered here */}
               <div className="w-full md:w-[880px] md:flex-shrink-0">
-                {/* Each section wrapped with an ID and scroll-margin-top */}
-                <section id="experience" className="scroll-mt-[80px]">
+                {/* Each section wrapped with an ID */}
+                <section id="experience">
                   <ExperienceSection />
                 </section>
-                <section id="credentials" className="mt-12 scroll-mt-[80px]">
+                <section id="credentials" className="mt-12">
                   <CredentialsSection />
                 </section>
-                <section id="skills" className="mt-12 scroll-mt-[80px]">
+                <section id="skills" className="mt-12">
                   <SkillsSection />
                 </section>
-                <section id="projects" className="mt-12 scroll-mt-[80px]">
+                <section id="projects" className="mt-12">
                   <ProjectsSection onProjectClick={setSelectedProject} />
                 </section>
               </div>

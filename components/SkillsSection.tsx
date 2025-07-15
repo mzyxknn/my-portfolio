@@ -11,7 +11,7 @@ export default function SkillsSection() {
     },
     {
       title: "Development",
-      skills: ["HTML/CSS", "JavaScript", "Python", "React", "TypeScript", "Tailwind", "Java", "C#", "Git", "SQL", "NoSQL"],
+      skills: ["HTML/CSS", "JavaScript", "Python", "React", "TypeScript", "Tailwind CSS", "Java", "C#", "SQL", "NoSQL"],
     },
     {
       title: "Platforms",
@@ -20,6 +20,7 @@ export default function SkillsSection() {
         "Android Studio",
         "Visual Studio Code",
         "Pycharm",
+        "Github",
         "Clickup",
         "Notion",
       ],
@@ -37,7 +38,7 @@ export default function SkillsSection() {
     },
     {
       title: "Soft Skills",
-      skills: ["Project Management", "Communication", "Adaptability", "Problem Solving", "Time Management", "Teamwork", "Leadership"],
+      skills: ["Project Management", "Communication", "Adaptability", "Problem Solving", "Analytical Thinking", "Teamwork", "Leadership", "Time Management"],
     },
   ]
 

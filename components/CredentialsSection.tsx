@@ -20,8 +20,8 @@ export default function CredentialsSection() {
     },
     {
       title: "Bicol IT Students Congress (BITSCON) 2024",
-      issuer: "IDEO",
-      year: "2020",
+      issuer: "Camarines Norte State College",
+      year: "2024",
       logo: "/logos/bitscon.png",
     },
     {
@@ -94,7 +94,7 @@ export default function CredentialsSection() {
                     alt={cert.issuer}
                     width={40}
                     height={40}
-                    className="object-contain"
+                    className="object-contain rounded-lg"
                   />
                 </div>
                 <div className="flex-1">
@@ -131,7 +131,7 @@ export default function CredentialsSection() {
                     alt={edu.school}
                     width={40}
                     height={40}
-                    className="object-contain"
+                    className="object-contain rounded-lg"
                   />
                 </div>
                 <div className="flex-1">
