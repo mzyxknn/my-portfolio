@@ -30,6 +30,8 @@ interface Project {
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [clickedProjectId, setClickedProjectId] = useState<number | null>(null)
+  const [savedShowAllState, setSavedShowAllState] = useState<boolean>(false)
   const [manualActiveSection, setManualActiveSection] = useState<string | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
@@ -81,6 +83,36 @@ export default function Portfolio() {
     }
   }
 
+  const handleProjectClick = (project: Project, showAllState: boolean) => {
+    setSelectedProject(project)
+    setClickedProjectId(project.id)
+    setSavedShowAllState(showAllState) // Save the current showAll state
+  }
+
+  const handleBackToPortfolio = () => {
+    setSelectedProject(null)
+    // Use setTimeout to ensure navigation happens after project detail is closed
+    setTimeout(() => {
+      handleSetActiveSection("projects")
+      
+      // If we have a clicked project ID, scroll to that specific project
+      if (clickedProjectId) {
+        setTimeout(() => {
+          const projectElement = document.getElementById(`project-${clickedProjectId}`)
+          if (projectElement) {
+            const topNavHeight = 72
+            const elementTop = projectElement.offsetTop - topNavHeight - 100 // Extra margin for better positioning
+            
+            window.scrollTo({
+              top: elementTop,
+              behavior: "smooth"
+            })
+          }
+        }, 200) // Additional delay to ensure projects section is rendered
+      }
+    }, 100)
+  }
+
   if (selectedProject) {
     return (
       <ThemeProvider>
@@ -88,8 +120,10 @@ export default function Portfolio() {
           <AnimatedBackground />
           <div className="relative z-10">
             <TopNavigation activeSection={activeSection} setActiveSection={handleSetActiveSection} />
-            <ProjectDetail project={selectedProject} onBack={() => setSelectedProject(null)} />
-            <MobileNavigation activeSection={activeSection} setActiveSection={handleSetActiveSection} />
+            <ProjectDetail 
+              project={selectedProject} 
+              onBack={handleBackToPortfolio} 
+            />
           </div>
         </div>
       </ThemeProvider>
@@ -121,7 +155,10 @@ export default function Portfolio() {
                   <SkillsSection />
                 </section>
                 <section id="projects" className="mt-12">
-                  <ProjectsSection onProjectClick={setSelectedProject} />
+                  <ProjectsSection 
+                    onProjectClick={handleProjectClick} 
+                    initialShowAll={selectedProject ? false : savedShowAllState}
+                  />
                 </section>
               </div>
             </div>

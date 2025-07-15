@@ -22,11 +22,12 @@ interface Project {
 }
 
 interface ProjectsSectionProps {
-  onProjectClick: (project: Project) => void
+  onProjectClick: (project: Project, showAllState: boolean) => void
+  initialShowAll?: boolean
 }
 
-export default function ProjectsSection({ onProjectClick }: ProjectsSectionProps) {
-  const [showAll, setShowAll] = useState(false)
+export default function ProjectsSection({ onProjectClick, initialShowAll = false }: ProjectsSectionProps) {
+  const [showAll, setShowAll] = useState(initialShowAll)
   const projects = [
     {
       id: 1,
@@ -150,10 +151,11 @@ export default function ProjectsSection({ onProjectClick }: ProjectsSectionProps
           {(showAll ? projects : projects.slice(0, 3)).map((project, index) => (
             <motion.div
               key={project.id}
+              id={`project-${project.id}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              onClick={() => onProjectClick(project)}
+              onClick={() => onProjectClick(project, showAll)}
               className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 cursor-pointer"
             >
               <div className="relative overflow-hidden">
