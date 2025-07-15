@@ -3,26 +3,61 @@ import { ArrowLeft, ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
 import { useEffect } from "react"
 
-interface ProjectDetailProps {
-  project: any
-  onBack: () => void
+interface Project {
+  id: number
+  title: string
+  category: string
+  description: string
+  image: string
+  tags: string[]
+  client: string
+  timeline: string
+  role: string
+  overview: string
+  features: string[]
+  technologies: string[]
+  gallery: string[]
 }
 
-export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
-  const moreProjects = [
-    {
-      id: 2,
-      title: "Finance Dashboard",
-      category: "Web Application",
-      image: "/placeholder.svg?height=100&width=150",
-    },
-    {
-      id: 3,
-      title: "E-Commerce Redesign",
-      category: "UX Case Study",
-      image: "/placeholder.svg?height=100&width=150",
-    },
-  ]
+interface ProjectDetailProps {
+  project: Project
+  onBack: () => void
+  allProjects?: Project[]
+  onProjectClick?: (project: Project) => void
+}
+
+export default function ProjectDetail({ project, onBack, allProjects = [], onProjectClick }: ProjectDetailProps) {
+  // Get related projects for "More Projects" section
+  const getRelatedProjects = (currentProject: Project, projects: Project[]) => {
+    // Filter out the current project
+    const otherProjects = projects.filter(p => p.id !== currentProject.id)
+    
+    if (otherProjects.length === 0) return []
+    
+    // First, try to find projects from the same category
+    const sameCategory = otherProjects.filter(p => p.category === currentProject.category)
+    
+    // If we have projects from same category, prioritize them
+    if (sameCategory.length >= 2) {
+      return sameCategory.slice(0, 2)
+    }
+    
+    // If we have 1 from same category, get 1 more from different category
+    if (sameCategory.length === 1) {
+      const differentCategory = otherProjects.filter(p => p.category !== currentProject.category)
+      return [
+        ...sameCategory,
+        ...differentCategory.slice(0, 1)
+      ]
+    }
+    
+    // If no projects from same category, return 2 most recent (by ID - assuming higher ID = more recent)
+    return otherProjects
+      .sort((a, b) => b.id - a.id)
+      .slice(0, 2)
+  }
+
+  const relatedProjects = getRelatedProjects(project, allProjects)
 
   useEffect(() => {
     // Scroll to the top when the component mounts or project changes
@@ -137,35 +172,38 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           </div>
 
           {/* More Projects */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">More Projects</h3>
-            <div className="space-y-3">
-              {moreProjects.map((proj) => (
-                <div
-                  key={proj.id}
-                  className="flex gap-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
-                >
-                  <Image
-                    src={proj.image || "/placeholder.svg"}
-                    alt={proj.title}
-                    width={60}
-                    height={40}
-                    className="rounded object-cover"
-                  />
-                  <div>
-                    <h4 className="text-gray-900 dark:text-white font-medium text-sm">{proj.title}</h4>
-                    <p className="text-gray-600 dark:text-gray-400 text-xs">{proj.category}</p>
+          {relatedProjects.length > 0 && (
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">More Projects</h3>
+              <div className="space-y-3">
+                {relatedProjects.map((proj) => (
+                  <div
+                    key={proj.id}
+                    className="flex gap-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                    onClick={() => onProjectClick?.(proj)}
+                  >
+                    <Image
+                      src={proj.image || "/placeholder.svg"}
+                      alt={proj.title}
+                      width={60}
+                      height={40}
+                      className="rounded object-cover"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-gray-900 dark:text-white font-medium text-sm truncate">{proj.title}</h4>
+                      <p className="text-gray-600 dark:text-gray-400 text-xs">{proj.category}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
       {/* Footer */}
       <footer className="text-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-gray-500 dark:text-gray-400 text-sm">© 2025 Jane Doe. All rights reserved.</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">© 2025 Mc Benny Copper R. Precilla. All rights reserved.</p>
       </footer>
     </div>
   )

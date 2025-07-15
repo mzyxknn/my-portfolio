@@ -1,6 +1,7 @@
 "use client"
 import { useState, useRef } from "react"
 import { useScrollspy } from "../lib/utils"
+import { projects, type Project } from "../lib/projectsData"
 import TopNavigation from "../components/TopNavigation"
 import MobileNavigation from "../components/MobileNavigation"
 import Sidebar from "../components/Sidebar"
@@ -11,22 +12,6 @@ import ProjectsSection from "../components/ProjectsSection"
 import ProjectDetail from "../components/ProjectDetail"
 import AnimatedBackground from "../components/AnimatedBackground"
 import { ThemeProvider } from "../components/ThemeProvider"
-
-interface Project {
-  id: number
-  title: string
-  category: string
-  description: string
-  image: string
-  tags: string[]
-  client: string
-  timeline: string
-  role: string
-  overview: string
-  features: string[]
-  technologies: string[]
-  gallery: string[]
-}
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
@@ -122,7 +107,9 @@ export default function Portfolio() {
             <TopNavigation activeSection={activeSection} setActiveSection={handleSetActiveSection} />
             <ProjectDetail 
               project={selectedProject} 
-              onBack={handleBackToPortfolio} 
+              onBack={handleBackToPortfolio}
+              allProjects={projects}
+              onProjectClick={(project) => handleProjectClick(project, savedShowAllState)}
             />
           </div>
         </div>
