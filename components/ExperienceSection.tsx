@@ -17,6 +17,7 @@ export default function ExperienceSection() {
         "Produced high-performing social media assets: image posts, carousels, and videos.",
         "Completed 2 UI challenges for mobile and tablet to strengthen structured design skills.",
         "Developed internal branding materials: polo shirts, ID cards, lanyards design.",
+        "Managed tasks using ClickUp and participated in daily stand-ups and retrospectives within an Agile environment to share updates, reflect on progress, and stay aligned with team goals.",
       ],
       skills: ["Figma", "Canva", "Adobe Photoshop","Adobe Illustrator", "Prototyping", "User Research", "Content Creation", "Social Media Visual Design", "Internal Branding"],
     },

@@ -22,7 +22,7 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
             <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
               <Folder size={20} className="text-orange-600 dark:text-orange-400" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Recent Projects</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Projects</h2>
           </div>
           {projects.length > 3 && (
             <button 

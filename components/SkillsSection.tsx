@@ -6,8 +6,8 @@ import { Code } from "lucide-react"
 export default function SkillsSection() {
   const skillCategories = [
     {
-      title: "Design",
-      skills: ["Figma", "Illustrator", "Photoshop", "Canva", "Framer"],
+      title: "Design Tools",
+      skills: ["Figma", "Balsamiq", "Illustrator", "Photoshop", "Canva", "Framer"],
     },
     {
       title: "Development",
@@ -26,19 +26,22 @@ export default function SkillsSection() {
       ],
     },
     {
-      title: "UX Methods",
+      title: "UI/UX Design",
       skills: [
+        "User-Centered Design",
         "User Research",
-        "Usability Testing",
+        "User Flows",
+        "User Testing",
+        "User Persona",
+        "User Journey",
         "Wireframing",
         "Prototyping",
-        "Information Architecture",
-        "User Flows",
+        "Usability Testing",
       ],
     },
     {
       title: "Soft Skills",
-      skills: ["Project Management", "Communication", "Adaptability", "Problem Solving", "Analytical Thinking", "Teamwork", "Leadership", "Time Management"],
+      skills: ["Analytical thinking", "Communication", "Adaptability", "Detail-Oriented", "Teamwork", "Leadership", "Time Management", "Curiosity"],
     },
   ]
 

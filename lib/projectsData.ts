@@ -12,11 +12,38 @@ export interface Project {
   features: string[]
   technologies: string[]
   gallery: string[]
+  liveUrl?: string
+  sourceUrl?: string
 }
 
 export const projects: Project[] = [
   {
     id: 1,
+    title: "Tiny Treasures Website",
+    category: "Website",
+    description: "A modern website which promotes handcrafted products for a local small business.",
+    image: "/project/ttweb/ttweb.png?height=200&width=300",
+    tags: ["Website", "Modern", "EmailJS", "Easy Navigation"],
+    client: "Personal Project",
+    timeline: "1 week (July, 2025)",
+    role: "Web Developer & Designer",
+    overview:
+      "Designed and developed a responsive website for Tiny Treasures, a local small business specializing in handcrafted products. The website serves as an online storefront, showcasing the unique offerings of the business while providing an easy-to-navigate user experience.",
+    features: [
+      "Easy navigation with a clean, modern design",
+      "Responsive layout for mobile and desktop",
+      "Product catalog for showcasing handcrafted items",
+      "Contact form for inquiries",
+      "1 pager with smooth scrolling",
+    ],
+    technologies: ["React","TypeScript", "Tailwind CSS", "Shadcn UI"],
+    gallery: [
+      "/project/ttweb/ttweb.png?height=400&width=300",  
+      "/project/ttweb/tinytreasures2.jpeg?height=400&width=300"],
+    liveUrl: "https://tiny-treasures-web.vercel.app/",
+  },
+  {
+    id: 2,
     title: "MURPHY: An Interactive Mobile Game for Science 3",
     category: "Mobile Game",
     description: "An educational mobile game designed for Grade 3 students, combining science lessons with interactive stories, games, and quizzes.",
@@ -43,7 +70,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     title: "Document Management System",
     category: "Web Application",
     description: "A web-based system built to streamline document tracking and management for the Local Government Unit of San Vicente, Camarines Norte.",
@@ -65,7 +92,7 @@ export const projects: Project[] = [
     gallery: ["/placeholder.svg?height=400&width=600", "/placeholder.svg?height=400&width=600"],
   },
   {
-    id: 3,
+    id: 4,
     title: "Botanica",
     category: "Mobile Application",
     description:
@@ -88,7 +115,7 @@ export const projects: Project[] = [
     gallery: ["/placeholder.svg?height=400&width=600", "/placeholder.svg?height=400&width=600"],
   },
   {
-    id: 4,
+    id: 5,
     title: "CNSC I-FIND",
     category: "Mobile Application",
     description:

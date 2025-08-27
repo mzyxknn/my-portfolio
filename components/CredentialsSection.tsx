@@ -7,11 +7,42 @@ import Image from "next/image"
 export default function CredentialsSection() {
   const certifications = [
     {
+      title: "Create High-Fidelity Designs and Prototypes in Figma",
+      issuer: "Coursera",
+      year: "2025",
+      logo: "/logos/uxd.png",
+    },
+    {
+      title: "Foundations of User Experience (UX) Design",
+      issuer: "Coursera",
+      year: "2025",
+      logo: "/logos/uxd.png",
+    },
+    {
+      title: "Conduct UX Research and Test Early Concepts",
+      issuer: "Coursera",
+      year: "2025",
+      logo: "/logos/uxd.png",
+    },
+    {
+      title: "Build Wireframes and Low-Fidelity Prototypes",
+      issuer: "Coursera",
+      year: "2025",
+      logo: "/logos/uxd.png",
+    },
+    {
+      title: "Start the UX Design Process: Empathize, Define, and Ideate",
+      issuer: "Coursera",
+      year: "2025",
+      logo: "/logos/uxd.png",
+    },
+    {
       title: "Office of the CISO Institute: Cybersecurity Essentials",
       issuer: "Coursera",
       year: "2025",
       logo: "/logos/ciso.png",
     },
+    
     {
       title: "Google AI Essentials Certificate",
       issuer: "Coursera",

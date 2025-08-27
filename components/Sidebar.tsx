@@ -29,16 +29,16 @@ export default function Sidebar() {
     { icon: Instagram, href: "https://www.instagram.com/mcbn_prcll/", label: "Instagram" },
   ]
 
-  const tags = ["UI/UX", "Software Developer", "Graphics Designer"]
+  const tags = ["UI/UX Designer", "Software Developer", "Graphics Designer"]
 
   const languageSkills = [
-    { name: "English", level: "Fluent", percentage: 90 },
+    { name: "English", level: "Intermediate", percentage: 85 },
     { name: "Tagalog", level: "Native", percentage: 100 },
   ]
 
   const handleSendEmail = () => {
     const email = "mcbencopper04@gmail.com"
-    const subject = "Portfolio Inquiry"
+    const subject = "Subject"
     const body = "Hello Mc Benny, I would like to discuss a potential opportunity with you."
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
       subject,
@@ -73,7 +73,7 @@ export default function Sidebar() {
         </div>
         <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Mc Benny Copper R. Precilla</h2>
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-1">UI/UX Designer & Software Developer</p>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">P-3 San Isidro, Talisay, Camarines Norte</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Marcelo Green Village, Parañaque, Metro Manila, 1700</p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 justify-center mb-4">
@@ -244,7 +244,7 @@ export default function Sidebar() {
                 <MapPin size={14} className="text-gray-500 dark:text-gray-400 mt-0.5" />
                 <div>
                   <p className="text-xs font-medium text-gray-900 dark:text-white">Location</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-300">P-3 San Isidro, Talisay, Camarines Norte</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300">Marcelo Green Village, Parañaque, Metro Manila, 1700</p>
                 </div>
               </div>
 
