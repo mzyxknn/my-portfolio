@@ -26,7 +26,7 @@ export const projects: Project[] = [
     tags: ["Website", "Modern", "EmailJS", "Easy Navigation"],
     client: "Personal Project",
     timeline: "1 week (July, 2025)",
-    role: "Web Developer & Designer",
+    role: "Web Developer & UI/UX Designer",
     overview:
       "Designed and developed a responsive website for Tiny Treasures, a local small business specializing in handcrafted products. The website serves as an online storefront, showcasing the unique offerings of the business while providing an easy-to-navigate user experience.",
     features: [
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     tags: ["Mobile Game", "Game Development", "Game-Based Learning"],
     client: "Capstone Project",
     timeline: "4 months (2024)",
-    role: "Game Developer & Designer",
+    role: "Game Developer & UI/UX Designer",
     overview:
       "MURPHY is a 2D interactive mobile game developed as a capstone project, aimed at enhancing science learning for third-grade students. The game integrates lessons from the Science 3 curriculum with storytelling, gamified learning, and interactive assessments. It provides an engaging alternative to traditional learning methods, promoting both fun and comprehension.",
     features: [
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     title: "Document Management System",
     category: "Web Application",
     description: "A web-based system built to streamline document tracking and management for the Local Government Unit of San Vicente, Camarines Norte.",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/project/dms/dms.png?height=200&width=300",
     tags: ["React", "Firebase", "Web App", "Management system"],
     client: "Academic Project – San Vicente LGU",
     timeline: "4 months (2024)",
@@ -89,7 +89,9 @@ export const projects: Project[] = [
       "Role-based permissions",
     ],
     technologies: ["React", "HTML & CSS", "Javascript", "TypeScript", "Tailwind CSS", "Firebase"],
-    gallery: ["/placeholder.svg?height=400&width=600", "/placeholder.svg?height=400&width=600"],
+    gallery: [
+      "/project/dms/dms.png?height=200&width=300",
+      "/project/dms/dms2.png?height=200&width=300"],
   },
   {
     id: 4,
