@@ -24,6 +24,29 @@ export default function AnimatedBackground() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Boxes Pattern Background */}
+      <div 
+        className="absolute inset-0 opacity-[0.08] dark:opacity-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(90deg, #666666 1px, transparent 1px),
+            linear-gradient(180deg, #666666 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+        }}
+      />
+      {/* White boxes for dark mode */}
+      <div 
+        className="absolute inset-0 opacity-0 dark:opacity-[0.06]"
+        style={{
+          backgroundImage: `
+            linear-gradient(90deg, #ffffff 1px, transparent 1px),
+            linear-gradient(180deg, #ffffff 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+        }}
+      />
+      
       {blobs.map((blob, index) => (
         <motion.div
           key={index}
