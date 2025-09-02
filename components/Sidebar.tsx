@@ -59,9 +59,9 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 h-fit sticky top-[56px]">
+    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit sticky top-[56px]">
       {/* Profile Section */}
-      <div className="p-6 text-center border-b border-gray-200/50 dark:border-gray-700/50">
+              <div className="p-6 text-center border-b border-gray-200/50 dark:border-[#333333]/50">
         <div className="w-32 h-32 mx-auto mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700">
           <Image
             src="/profile.jpg?height=128&width=128"
@@ -80,7 +80,7 @@ export default function Sidebar() {
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+              className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-[#444444] transition-colors cursor-pointer"
             >
               {tag}
             </span>
@@ -93,7 +93,7 @@ export default function Sidebar() {
             <a
               key={label}
               href={href}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-[#111111] hover:bg-gray-200 dark:hover:bg-[#333333] transition-colors"
               aria-label={label}
             >
               <Icon size={16} className="text-gray-600 dark:text-gray-300" />
@@ -112,7 +112,7 @@ export default function Sidebar() {
           </button>
           <button
             onClick={handleSendEmail}
-            className="flex-1 flex items-center justify-center gap-1 py-2 px-2 bg-transparent border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg transition-colors"
+            className="flex-1 flex items-center justify-center gap-1 py-2 px-2 bg-transparent border border-gray-300 dark:border-[#333333] hover:bg-gray-50 dark:hover:bg-[#111111] text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg transition-colors"
           >
             <Send size={14} />
             Email
@@ -122,12 +122,12 @@ export default function Sidebar() {
 
       {/* Tab Navigation */}
       <div className="p-4">
-        <div className="flex rounded-xl bg-gray-100 dark:bg-gray-700 p-1 mb-4">
+        <div className="flex rounded-xl bg-gray-100 dark:bg-[#333333] p-1 mb-4">
           <button
             onClick={() => setActiveTab("about")}
             className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
               activeTab === "about"
-                ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm"
+                ? "bg-white dark:bg-[#111111] text-gray-900 dark:text-white shadow-sm"
                 : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
@@ -138,7 +138,7 @@ export default function Sidebar() {
             onClick={() => setActiveTab("contact")}
             className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
               activeTab === "contact"
-                ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm"
+                ? "bg-white dark:bg-[#111111] text-gray-900 dark:text-white shadow-sm"
                 : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
@@ -198,7 +198,7 @@ export default function Sidebar() {
                         <span className="text-gray-600 dark:text-gray-300">{lang.name}</span>
                         <span className="text-gray-900 dark:text-white font-medium">{lang.level}</span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                      <div className="w-full bg-gray-200 dark:bg-[#111111] rounded-full h-1.5">
                         <div
                           className="bg-blue-600 dark:bg-blue-400 h-1.5 rounded-full transition-all duration-300"
                           style={{ width: `${lang.percentage}%` }}
@@ -264,7 +264,7 @@ export default function Sidebar() {
                     {["WFH", "Remote", "On-site"].map((type) => (
                       <span
                         key={type}
-                        className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg"
+                        className="px-2 py-1 text-xs bg-blue-100 dark:bg-[#111111] text-blue-700 dark:text-blue-300 rounded-lg"
                       >
                         {type}
                       </span>

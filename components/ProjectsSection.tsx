@@ -13,18 +13,21 @@ interface ProjectsSectionProps {
 
 export default function ProjectsSection({ onProjectClick, initialShowAll = false }: ProjectsSectionProps) {
   const [showAll, setShowAll] = useState(initialShowAll)
+  
+  // Reverse projects to show latest first (highest ID first)
+  const reversedProjects = [...projects].reverse()
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 h-fit">
+    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit">
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
+            <div className="p-2 bg-orange-100 dark:bg-[#333333]/30 rounded-xl">
               <Folder size={20} className="text-orange-600 dark:text-orange-400" />
             </div>
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">Projects</h2>
           </div>
-          {projects.length > 3 && (
+          {reversedProjects.length > 3 && (
             <button 
               onClick={() => setShowAll(!showAll)}
               className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
@@ -36,7 +39,7 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {(showAll ? projects : projects.slice(0, 3)).map((project, index) => (
+          {(showAll ? reversedProjects : reversedProjects.slice(0, 3)).map((project, index) => (
             <motion.div
               key={project.id}
               id={`project-${project.id}`}
@@ -44,7 +47,7 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               onClick={() => onProjectClick(project, showAll)}
-              className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="group bg-white/60 dark:bg-[#111111]/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 dark:border-[#333333]/50 hover:shadow-xl transition-all duration-300 cursor-pointer"
             >
               <div className="relative overflow-hidden">
                 <Image
@@ -55,7 +58,7 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
                   className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <button className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-gray-800/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-[#111111]/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <ExternalLink size={14} className="text-gray-700 dark:text-gray-300" />
                 </button>
               </div>
@@ -74,7 +77,7 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg"
+                      className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg"
                     >
                       {tag}
                     </span>

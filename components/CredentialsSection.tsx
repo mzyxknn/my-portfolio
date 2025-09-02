@@ -93,10 +93,10 @@ export default function CredentialsSection() {
   ]
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 h-fit">
+    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit">
       <div className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+          <div className="p-2 bg-purple-100 dark:bg-[#333333]/30 rounded-xl">
             <Award size={24} className="text-purple-600 dark:text-purple-400" />
           </div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Credentials</h2>
@@ -117,9 +117,9 @@ export default function CredentialsSection() {
             {certifications.map((cert, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200/50 dark:border-gray-600/30"
+                className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#333333]/50 rounded-xl border border-gray-200/50 dark:border-[#333333]/30"
               >
-                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="w-12 h-12 bg-gray-200 dark:bg-[#333333] rounded-lg flex items-center justify-center overflow-hidden">
                   <Image
                     src={cert.logo}
                     alt={cert.issuer}
@@ -154,9 +154,9 @@ export default function CredentialsSection() {
             {education.map((edu, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200/50 dark:border-gray-600/30"
+                className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#333333]/50 rounded-xl border border-gray-200/50 dark:border-[#333333]/30"
               >
-                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="w-12 h-12 bg-gray-200 dark:bg-[#333333] rounded-lg flex items-center justify-center overflow-hidden">
                   <Image
                     src={edu.logo}
                     alt={edu.school}
@@ -190,7 +190,7 @@ export default function CredentialsSection() {
             {skills.map((skill) => (
               <span
                 key={skill}
-                className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-gray-600/30"
+                className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-[#333333]/30"
               >
                 {skill}
               </span>

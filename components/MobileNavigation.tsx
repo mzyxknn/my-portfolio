@@ -69,7 +69,7 @@ export default function MobileNavigation({ activeSection, setActiveSection }: Mo
 
   return (
     <nav className="md:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="flex items-center gap-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-2 py-2 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+      <div className="flex items-center gap-1 bg-white/90 dark:bg-[#111111]/90 backdrop-blur-sm rounded-full px-2 py-2 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
         {navigationItems.map((item) => {
           const Icon = item.icon
           
@@ -83,7 +83,7 @@ export default function MobileNavigation({ activeSection, setActiveSection }: Mo
               className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-200 ${
                 isActive
                   ? "bg-blue-500 text-white min-w-fit"
-                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 min-w-fit"
+                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#111111] min-w-fit"
               }`}
             >
               <Icon size={20} />
@@ -97,9 +97,9 @@ export default function MobileNavigation({ activeSection, setActiveSection }: Mo
         })}
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-2 px-3 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors min-w-fit"
+          className="flex items-center gap-2 px-3 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#111111] transition-colors min-w-fit"
         >
-          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+          {theme === "light" ? <Moon size={20} /> : <Sun size={20} className="text-yellow-500" />}
         </button>
       </div>
     </nav>

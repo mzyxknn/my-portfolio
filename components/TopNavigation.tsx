@@ -107,7 +107,7 @@ export default function TopNavigation({ activeSection, setActiveSection }: TopNa
   ]
 
   return (
-    <nav className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50 hidden md:block">
+    <nav className="bg-white/90 dark:bg-[#111111]/90 backdrop-blur-sm border-b border-gray-200/50 dark:border-[#333333]/50 sticky top-0 z-50 hidden md:block">
       <div className="flex justify-center px-6 py-4">
         <div className="flex items-center justify-between w-[1200px]">
           {/* Left side - Name and animated title */}
@@ -156,9 +156,9 @@ export default function TopNavigation({ activeSection, setActiveSection }: TopNa
 
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-white"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-[#111111] hover:bg-gray-200 dark:hover:bg-[#333333] transition-colors text-gray-700 dark:text-white"
             >
-              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} className="text-yellow-500" />}
             </button>
           </div>
         </div>

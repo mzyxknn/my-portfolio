@@ -46,10 +46,10 @@ export default function SkillsSection() {
   ]
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 h-fit">
+    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit">
       <div className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-xl">
+          <div className="p-2 bg-green-100 dark:bg-[#333333]/30 rounded-xl">
             <Code size={24} className="text-green-600 dark:text-green-400" />
           </div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Technical Skills</h2>
@@ -71,7 +71,7 @@ export default function SkillsSection() {
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-gray-600/30"
+                    className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-[#333333]/30"
                   >
                     {skill}
                   </span>

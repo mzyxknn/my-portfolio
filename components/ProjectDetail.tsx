@@ -127,7 +127,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-8">
           {/* Project Overview */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+          <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Project Overview</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">{project.overview}</p>
 
@@ -149,7 +149,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
                 {project.technologies?.map((tech: string) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm"
+                    className="px-3 py-1 bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg text-sm"
                   >
                     {tech}
                   </span>
@@ -167,7 +167,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
               </button>
               <button
                 onClick={() => handleOpenLink(project.sourceUrl, "No source code link provided yet.")}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm font-medium"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#555555] text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm font-medium"
               >
                 <Github size={16} />
                 View Source Code
@@ -176,7 +176,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
           </div>
 
           {/* Project Gallery */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+          <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Project Gallery</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {project.gallery?.map((image: string, index: number) => (
@@ -202,7 +202,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Project Details */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+          <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Project Details</h3>
             <div className="space-y-3">
               <div>
@@ -222,13 +222,13 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
 
           {/* More Projects */}
           {relatedProjects.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+            <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">More Projects</h3>
               <div className="space-y-3">
                 {relatedProjects.map((proj) => (
                   <div
                     key={proj.id}
-                    className="flex gap-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                    className="flex gap-3 p-3 bg-gray-100 dark:bg-[#333333] rounded-lg hover:bg-gray-200 dark:hover:bg-[#555555] transition-colors cursor-pointer"
                     onClick={() => onProjectClick?.(proj)}
                   >
                     <Image
@@ -251,13 +251,13 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       </div>
 
       {/* Footer */}
-      <footer className="text-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <footer className="text-center mt-12 pt-8 border-t border-gray-200 dark:border-[#333333]">
         <p className="text-gray-500 dark:text-gray-400 text-sm">© 2025 Mc Benny Copper R. Precilla. All rights reserved.</p>
       </footer>
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-xl bg-white dark:bg-gray-800 p-6 shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+          <div className="w-full max-w-sm rounded-xl bg-white dark:bg-[#111111] p-6 shadow-xl border border-gray-200/50 dark:border-[#333333]/50">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Notice</h4>
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">{modalMessage}</p>
             <div className="flex justify-end">
@@ -278,11 +278,11 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
           onClick={closeImageModal}
         >
           <div
-            className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 max-w-[90vw] max-h-[90vh] overflow-hidden"
+            className="relative bg-white dark:bg-[#111111] rounded-xl shadow-xl border border-gray-200/50 dark:border-[#333333]/50 max-w-[90vw] max-h-[90vh] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header with Controls */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-[#333333]">
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-500 dark:text-gray-400">Zoom:</span>
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{Math.round(zoomLevel * 100)}%</span>
@@ -291,7 +291,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
                 <button
                   type="button"
                   aria-label="Zoom out"
-                  className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="p-2 rounded-lg bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#555555] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   onClick={handleZoomOut}
                   disabled={zoomLevel <= 0.5}
                 >
@@ -302,7 +302,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
                 <button
                   type="button"
                   aria-label="Zoom in"
-                  className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="p-2 rounded-lg bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#555555] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   onClick={handleZoomIn}
                   disabled={zoomLevel >= 3}
                 >
@@ -313,7 +313,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
                 <button
                   type="button"
                   aria-label="Close image"
-                  className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="p-2 rounded-lg bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#555555] transition-colors"
                   onClick={closeImageModal}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
