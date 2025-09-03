@@ -1,7 +1,7 @@
 "use client"
 import { ArrowLeft, ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 
 interface Project {
   id: number
@@ -34,6 +34,9 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
   const [selectedImageSrc, setSelectedImageSrc] = useState<string | null>(null)
   const [zoomLevel, setZoomLevel] = useState(1)
+  const imageRef = useRef<HTMLImageElement>(null)
+  const [initialDistance, setInitialDistance] = useState(0)
+  const [initialZoom, setInitialZoom] = useState(1)
 
   const handleOpenLink = (url: string | undefined, fallbackMessage: string) => {
     if (url && typeof window !== 'undefined') {
@@ -63,6 +66,44 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
   const handleZoomOut = () => {
     setZoomLevel(prev => Math.max(prev - 0.1, 0.5))
   }
+
+  // Helper function to get distance between two touch points
+  const getDistance = useCallback((touches: React.TouchList) => {
+    if (touches.length < 2) return 0
+    const touch1 = touches[0]
+    const touch2 = touches[1]
+    return Math.sqrt(
+      Math.pow(touch2.clientX - touch1.clientX, 2) + 
+      Math.pow(touch2.clientY - touch1.clientY, 2)
+    )
+  }, [])
+
+  // Touch event handlers for pinch-to-zoom
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const distance = getDistance(e.touches)
+      setInitialDistance(distance)
+      setInitialZoom(zoomLevel)
+      e.preventDefault()
+    }
+  }, [getDistance, zoomLevel])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 2 && initialDistance > 0) {
+      const currentDistance = getDistance(e.touches)
+      const scale = currentDistance / initialDistance
+      const newZoom = Math.min(Math.max(initialZoom * scale, 0.5), 3)
+      setZoomLevel(newZoom)
+      e.preventDefault()
+    }
+  }, [getDistance, initialDistance, initialZoom])
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length < 2) {
+      setInitialDistance(0)
+      setInitialZoom(1)
+    }
+  }, [])
 
   // Get related projects for "More Projects" section
   const getRelatedProjects = (currentProject: Project, projects: Project[]) => {
@@ -102,7 +143,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
   }, [project])
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-6 py-8">
+    <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
       {/* Back Button */}
       <button
         onClick={onBack}
@@ -123,9 +164,9 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="col-span-1 lg:col-span-2 space-y-6 lg:space-y-8">
           {/* Project Overview */}
           <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Project Overview</h2>
@@ -178,7 +219,13 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
           {/* Project Gallery */}
           <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Project Gallery</h2>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className={`grid gap-4 ${
+              project.gallery?.length === 1 
+                ? 'grid-cols-1' 
+                : project.gallery?.length === 2 
+                  ? 'grid-cols-1 md:grid-cols-2' 
+                  : 'grid-cols-1 md:grid-cols-2'
+            }`}>
               {project.gallery?.map((image: string, index: number) => (
                 <button
                   key={index}
@@ -200,7 +247,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-6">
+        <div className="col-span-1 space-y-4 lg:space-y-6">
           {/* Project Details */}
           <div className="bg-white dark:bg-[#111111] rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-[#333333]/50">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Project Details</h3>
@@ -325,12 +372,17 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
             
             {/* Image Container */}
             <div className="p-4 overflow-auto max-h-[calc(90vh-80px)]">
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center touch-none">
                 <img
+                  ref={imageRef}
                   src={selectedImageSrc}
                   alt="Project screenshot"
-                  className="max-w-full max-h-full object-contain transition-transform duration-200"
+                  className="max-w-full max-h-full object-contain transition-transform duration-200 select-none touch-manipulation"
                   style={{ transform: `scale(${zoomLevel})` }}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                  draggable={false}
                 />
               </div>
             </div>

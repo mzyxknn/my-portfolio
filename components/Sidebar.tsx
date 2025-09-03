@@ -93,7 +93,7 @@ export default function Sidebar() {
             <a
               key={label}
               href={href}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-[#111111] hover:bg-gray-200 dark:hover:bg-[#333333] transition-colors"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#444444] transition-colors"
               aria-label={label}
             >
               <Icon size={16} className="text-gray-600 dark:text-gray-300" />
@@ -264,7 +264,7 @@ export default function Sidebar() {
                     {["WFH", "Remote", "On-site"].map((type) => (
                       <span
                         key={type}
-                        className="px-2 py-1 text-xs bg-blue-100 dark:bg-[#111111] text-blue-700 dark:text-blue-300 rounded-lg"
+                        className="px-2 py-1 text-xs bg-blue-100 dark:bg-[#333333] text-blue-700 dark:text-blue-300 rounded-lg"
                       >
                         {type}
                       </span>
