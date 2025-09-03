@@ -40,6 +40,9 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
   const [initialZoom, setInitialZoom] = useState(1)
   const [transformOrigin, setTransformOrigin] = useState({ x: 50, y: 50 })
   const [isTouch, setIsTouch] = useState(false)
+  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 })
+  const [isPanning, setIsPanning] = useState(false)
+  const [lastTouchPosition, setLastTouchPosition] = useState({ x: 0, y: 0 })
 
   const handleOpenLink = (url: string | undefined, fallbackMessage: string) => {
     if (url && typeof window !== 'undefined') {
@@ -56,6 +59,8 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     setZoomLevel(1) // Reset zoom on new image
     setTransformOrigin({ x: 50, y: 50 }) // Reset transform origin to center
     setInitialDistance(0)
+    setPanOffset({ x: 0, y: 0 }) // Reset pan offset
+    setIsPanning(false)
   }
 
   const closeImageModal = () => {
@@ -64,20 +69,43 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     setZoomLevel(1) // Reset zoom on close
     setTransformOrigin({ x: 50, y: 50 }) // Reset transform origin to center
     setInitialDistance(0)
+    setPanOffset({ x: 0, y: 0 }) // Reset pan offset
+    setIsPanning(false)
   }
 
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 0.1, 3))
+    setZoomLevel(prev => {
+      const newZoom = Math.min(prev + 0.1, 3)
+      // Reset pan offset when zooming via buttons for better UX
+      if (prev === 1 && newZoom > 1) {
+        setPanOffset({ x: 0, y: 0 })
+      }
+      return newZoom
+    })
   }
 
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 0.1, 0.5))
+    setZoomLevel(prev => {
+      const newZoom = Math.max(prev - 0.1, 0.5)
+      // Reset pan offset when zooming out to 1x or less
+      if (newZoom <= 1) {
+        setPanOffset({ x: 0, y: 0 })
+      }
+      return newZoom
+    })
   }
 
   // Detect if device supports touch
   useEffect(() => {
     setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
   }, [])
+
+  // Reset pan offset when zoom level is 1 or below
+  useEffect(() => {
+    if (zoomLevel <= 1) {
+      setPanOffset({ x: 0, y: 0 })
+    }
+  }, [zoomLevel])
 
   // Helper function to get distance between two touch points
   const getDistance = useCallback((touches: React.TouchList) => {
@@ -119,11 +147,12 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     }
   }, [])
 
-  // Enhanced touch event handlers for pinch-to-zoom with focal point
+  // Enhanced touch event handlers for pinch-to-zoom with focal point and panning
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (!isTouch) return // Only work on touch devices
     
     if (e.touches.length === 2) {
+      // Two-finger touch: pinch-to-zoom
       const distance = getDistance(e.touches)
       const center = getTouchCenter(e.touches)
       const imageCoords = getImageRelativeCoords(center.x, center.y)
@@ -131,6 +160,13 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       setInitialDistance(distance)
       setInitialZoom(zoomLevel)
       setTransformOrigin(imageCoords)
+      setIsPanning(false)
+      e.preventDefault()
+    } else if (e.touches.length === 1 && zoomLevel > 1) {
+      // Single-finger touch on zoomed image: start panning
+      const touch = e.touches[0]
+      setLastTouchPosition({ x: touch.clientX, y: touch.clientY })
+      setIsPanning(true)
       e.preventDefault()
     }
   }, [isTouch, getDistance, getTouchCenter, getImageRelativeCoords, zoomLevel])
@@ -139,13 +175,27 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     if (!isTouch) return // Only work on touch devices
     
     if (e.touches.length === 2 && initialDistance > 0) {
+      // Two-finger move: pinch-to-zoom
       const currentDistance = getDistance(e.touches)
       const scale = currentDistance / initialDistance
       const newZoom = Math.min(Math.max(initialZoom * scale, 0.5), 3)
       setZoomLevel(newZoom)
       e.preventDefault()
+    } else if (e.touches.length === 1 && isPanning && zoomLevel > 1) {
+      // Single-finger move on zoomed image: panning
+      const touch = e.touches[0]
+      const deltaX = touch.clientX - lastTouchPosition.x
+      const deltaY = touch.clientY - lastTouchPosition.y
+      
+      setPanOffset(prev => ({
+        x: prev.x + deltaX,
+        y: prev.y + deltaY
+      }))
+      
+      setLastTouchPosition({ x: touch.clientX, y: touch.clientY })
+      e.preventDefault()
     }
-  }, [isTouch, getDistance, initialDistance, initialZoom])
+  }, [isTouch, getDistance, initialDistance, initialZoom, isPanning, zoomLevel, lastTouchPosition])
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     if (!isTouch) return // Only work on touch devices
@@ -153,6 +203,10 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     if (e.touches.length < 2) {
       setInitialDistance(0)
       // Don't reset initialZoom here to maintain smoother experience
+    }
+    
+    if (e.touches.length === 0) {
+      setIsPanning(false)
     }
   }, [isTouch])
 
@@ -433,9 +487,9 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
                   alt="Project screenshot"
                   className="max-w-full max-h-full object-contain select-none touch-manipulation"
                   style={{ 
-                    transform: `scale(${zoomLevel})`,
+                    transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomLevel})`,
                     transformOrigin: `${transformOrigin.x}% ${transformOrigin.y}%`,
-                    transition: isTouch && initialDistance > 0 ? 'none' : 'transform 0.2s ease-out'
+                    transition: (isTouch && (initialDistance > 0 || isPanning)) ? 'none' : 'transform 0.2s ease-out'
                   }}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}

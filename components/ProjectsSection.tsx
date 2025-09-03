@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { motion } from "framer-motion"
 import { Folder, ExternalLink, ArrowRight, ArrowUp } from "lucide-react"
 import Image from "next/image"
@@ -16,6 +16,11 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
   
   // Reverse projects to show latest first (highest ID first)
   const reversedProjects = [...projects].reverse()
+
+  // Handle project click with touch optimization
+  const handleProjectClick = useCallback((project: Project, showAllState: boolean) => {
+    onProjectClick(project, showAllState)
+  }, [onProjectClick])
 
   return (
     <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit">
@@ -46,8 +51,8 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              onClick={() => onProjectClick(project, showAll)}
-              className="group bg-white/60 dark:bg-[#111111]/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 dark:border-[#333333]/50 hover:shadow-xl transition-all duration-300 cursor-pointer"
+              onClick={() => handleProjectClick(project, showAll)}
+              className="group bg-white/60 dark:bg-[#111111]/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 dark:border-[#333333]/50 hover:shadow-xl transition-all duration-300 cursor-pointer touch-manipulation"
             >
               <div className="relative overflow-hidden">
                 <Image
@@ -58,9 +63,9 @@ export default function ProjectsSection({ onProjectClick, initialShowAll = false
                   className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <button className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-[#111111]/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-[#111111]/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <ExternalLink size={14} className="text-gray-700 dark:text-gray-300" />
-                </button>
+                </div>
               </div>
 
               <div className="p-4">
