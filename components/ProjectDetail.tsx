@@ -162,12 +162,16 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       setTransformOrigin(imageCoords)
       setIsPanning(false)
       e.preventDefault()
-    } else if (e.touches.length === 1 && zoomLevel > 1) {
-      // Single-finger touch on zoomed image: start panning
+    } else if (e.touches.length === 1) {
+      // Single-finger touch: always track for potential panning
       const touch = e.touches[0]
       setLastTouchPosition({ x: touch.clientX, y: touch.clientY })
-      setIsPanning(true)
-      e.preventDefault()
+      
+      // Only set panning true if zoomed in
+      if (zoomLevel > 1) {
+        setIsPanning(true)
+        e.preventDefault()
+      }
     }
   }, [isTouch, getDistance, getTouchCenter, getImageRelativeCoords, zoomLevel])
 
@@ -181,21 +185,25 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       const newZoom = Math.min(Math.max(initialZoom * scale, 0.5), 3)
       setZoomLevel(newZoom)
       e.preventDefault()
-    } else if (e.touches.length === 1 && isPanning && zoomLevel > 1) {
+    } else if (e.touches.length === 1 && zoomLevel > 1) {
       // Single-finger move on zoomed image: panning
       const touch = e.touches[0]
       const deltaX = touch.clientX - lastTouchPosition.x
       const deltaY = touch.clientY - lastTouchPosition.y
       
-      setPanOffset(prev => ({
-        x: prev.x + deltaX,
-        y: prev.y + deltaY
-      }))
-      
-      setLastTouchPosition({ x: touch.clientX, y: touch.clientY })
-      e.preventDefault()
+      // Only pan if there's meaningful movement
+      if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+        setPanOffset(prev => ({
+          x: prev.x + deltaX,
+          y: prev.y + deltaY
+        }))
+        
+        setLastTouchPosition({ x: touch.clientX, y: touch.clientY })
+        setIsPanning(true)
+        e.preventDefault()
+      }
     }
-  }, [isTouch, getDistance, initialDistance, initialZoom, isPanning, zoomLevel, lastTouchPosition])
+  }, [isTouch, getDistance, initialDistance, initialZoom, zoomLevel, lastTouchPosition])
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     if (!isTouch) return // Only work on touch devices
@@ -476,10 +484,11 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
             </div>
             
             {/* Image Container */}
-            <div className="p-4 overflow-auto max-h-[calc(90vh-80px)]">
+            <div className="p-4 overflow-hidden max-h-[calc(90vh-80px)]">
               <div 
                 ref={imageContainerRef}
-                className="flex items-center justify-center touch-none"
+                className="flex items-center justify-center w-full h-full"
+                style={{ minHeight: '300px' }}
               >
                 <img
                   ref={imageRef}
