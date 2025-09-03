@@ -35,8 +35,11 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
   const [selectedImageSrc, setSelectedImageSrc] = useState<string | null>(null)
   const [zoomLevel, setZoomLevel] = useState(1)
   const imageRef = useRef<HTMLImageElement>(null)
+  const imageContainerRef = useRef<HTMLDivElement>(null)
   const [initialDistance, setInitialDistance] = useState(0)
   const [initialZoom, setInitialZoom] = useState(1)
+  const [transformOrigin, setTransformOrigin] = useState({ x: 50, y: 50 })
+  const [isTouch, setIsTouch] = useState(false)
 
   const handleOpenLink = (url: string | undefined, fallbackMessage: string) => {
     if (url && typeof window !== 'undefined') {
@@ -51,12 +54,16 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     setSelectedImageSrc(src)
     setIsImageModalOpen(true)
     setZoomLevel(1) // Reset zoom on new image
+    setTransformOrigin({ x: 50, y: 50 }) // Reset transform origin to center
+    setInitialDistance(0)
   }
 
   const closeImageModal = () => {
     setIsImageModalOpen(false)
     setSelectedImageSrc(null)
     setZoomLevel(1) // Reset zoom on close
+    setTransformOrigin({ x: 50, y: 50 }) // Reset transform origin to center
+    setInitialDistance(0)
   }
 
   const handleZoomIn = () => {
@@ -66,6 +73,11 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
   const handleZoomOut = () => {
     setZoomLevel(prev => Math.max(prev - 0.1, 0.5))
   }
+
+  // Detect if device supports touch
+  useEffect(() => {
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  }, [])
 
   // Helper function to get distance between two touch points
   const getDistance = useCallback((touches: React.TouchList) => {
@@ -78,17 +90,54 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     )
   }, [])
 
-  // Touch event handlers for pinch-to-zoom
+  // Get the center point between two touches
+  const getTouchCenter = useCallback((touches: React.TouchList) => {
+    if (touches.length < 2) return { x: 0, y: 0 }
+    const touch1 = touches[0]
+    const touch2 = touches[1]
+    return {
+      x: (touch1.clientX + touch2.clientX) / 2,
+      y: (touch1.clientY + touch2.clientY) / 2
+    }
+  }, [])
+
+  // Convert touch coordinates to image-relative coordinates
+  const getImageRelativeCoords = useCallback((clientX: number, clientY: number) => {
+    if (!imageRef.current || !imageContainerRef.current) return { x: 50, y: 50 }
+    
+    const containerRect = imageContainerRef.current.getBoundingClientRect()
+    const imageRect = imageRef.current.getBoundingClientRect()
+    
+    // Calculate relative position within the image
+    const relativeX = ((clientX - imageRect.left) / imageRect.width) * 100
+    const relativeY = ((clientY - imageRect.top) / imageRect.height) * 100
+    
+    // Clamp values between 0 and 100
+    return {
+      x: Math.max(0, Math.min(100, relativeX)),
+      y: Math.max(0, Math.min(100, relativeY))
+    }
+  }, [])
+
+  // Enhanced touch event handlers for pinch-to-zoom with focal point
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!isTouch) return // Only work on touch devices
+    
     if (e.touches.length === 2) {
       const distance = getDistance(e.touches)
+      const center = getTouchCenter(e.touches)
+      const imageCoords = getImageRelativeCoords(center.x, center.y)
+      
       setInitialDistance(distance)
       setInitialZoom(zoomLevel)
+      setTransformOrigin(imageCoords)
       e.preventDefault()
     }
-  }, [getDistance, zoomLevel])
+  }, [isTouch, getDistance, getTouchCenter, getImageRelativeCoords, zoomLevel])
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isTouch) return // Only work on touch devices
+    
     if (e.touches.length === 2 && initialDistance > 0) {
       const currentDistance = getDistance(e.touches)
       const scale = currentDistance / initialDistance
@@ -96,14 +145,16 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       setZoomLevel(newZoom)
       e.preventDefault()
     }
-  }, [getDistance, initialDistance, initialZoom])
+  }, [isTouch, getDistance, initialDistance, initialZoom])
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!isTouch) return // Only work on touch devices
+    
     if (e.touches.length < 2) {
       setInitialDistance(0)
-      setInitialZoom(1)
+      // Don't reset initialZoom here to maintain smoother experience
     }
-  }, [])
+  }, [isTouch])
 
   // Get related projects for "More Projects" section
   const getRelatedProjects = (currentProject: Project, projects: Project[]) => {
@@ -372,13 +423,20 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
             
             {/* Image Container */}
             <div className="p-4 overflow-auto max-h-[calc(90vh-80px)]">
-              <div className="flex items-center justify-center touch-none">
+              <div 
+                ref={imageContainerRef}
+                className="flex items-center justify-center touch-none"
+              >
                 <img
                   ref={imageRef}
                   src={selectedImageSrc}
                   alt="Project screenshot"
-                  className="max-w-full max-h-full object-contain transition-transform duration-200 select-none touch-manipulation"
-                  style={{ transform: `scale(${zoomLevel})` }}
+                  className="max-w-full max-h-full object-contain select-none touch-manipulation"
+                  style={{ 
+                    transform: `scale(${zoomLevel})`,
+                    transformOrigin: `${transformOrigin.x}% ${transformOrigin.y}%`,
+                    transition: isTouch && initialDistance > 0 ? 'none' : 'transform 0.2s ease-out'
+                  }}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
