@@ -81,7 +81,7 @@ export default function Portfolio() {
       handleSetActiveSection("projects")
       
       // If we have a clicked project ID, scroll to that specific project
-      if (clickedProjectId) {
+      if (clickedProjectId && typeof window !== 'undefined') {
         setTimeout(() => {
           const projectElement = document.getElementById(`project-${clickedProjectId}`)
           if (projectElement) {

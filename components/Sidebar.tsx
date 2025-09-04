@@ -37,25 +37,29 @@ export default function Sidebar() {
   ]
 
   const handleSendEmail = () => {
-    const email = "mcbencopper04@gmail.com"
-    const subject = "Subject"
-    const body = "Hello Mc Benny, I would like to discuss a potential opportunity with you."
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`
-    window.open(gmailUrl, "_blank")
+    if (typeof window !== 'undefined') {
+      const email = "mcbencopper04@gmail.com"
+      const subject = "Subject"
+      const body = "Hello Mc Benny, I would like to discuss a potential opportunity with you."
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(body)}`
+      window.open(gmailUrl, "_blank")
+    }
   }
 
   const handleResumeClick = () => {
-    // Open PDF in new tab for viewing
-    window.open("/Resume_Precilla, Mc Benny Copper R.pdf", "_blank")
-    
-    // Optionally trigger download as well
-    // Uncomment the lines below if you want automatic download
-    // const link = document.createElement('a')
-    // link.href = "/resume.pdf"
-    // link.download = "Mc_Benny_Copper_Resume.pdf"
-    // link.click()
+    if (typeof window !== 'undefined') {
+      // Open PDF in new tab for viewing
+      window.open("/Resume_Precilla, Mc Benny Copper R.pdf", "_blank")
+      
+      // Optionally trigger download as well
+      // Uncomment the lines below if you want automatic download
+      // const link = document.createElement('a')
+      // link.href = "/resume.pdf"
+      // link.download = "Mc_Benny_Copper_Resume.pdf"
+      // link.click()
+    }
   }
 
   return (

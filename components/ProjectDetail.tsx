@@ -97,7 +97,9 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
 
   // Detect if device supports touch
   useEffect(() => {
-    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    if (typeof window !== 'undefined') {
+      setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    }
   }, [])
 
   // Reset pan offset when zoom level is 1 or below
@@ -149,7 +151,11 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
 
   // Enhanced touch event handlers for pinch-to-zoom with focal point and panning
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (!isTouch) return // Only work on touch devices
+    if (!isTouch || !isImageModalOpen) return // Only work on touch devices and when modal is open
+    
+    // Always prevent default to stop background interaction
+    e.preventDefault()
+    e.stopPropagation()
     
     if (e.touches.length === 2) {
       // Two-finger touch: pinch-to-zoom
@@ -161,7 +167,6 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       setInitialZoom(zoomLevel)
       setTransformOrigin(imageCoords)
       setIsPanning(false)
-      e.preventDefault()
     } else if (e.touches.length === 1) {
       // Single-finger touch: always track for potential panning
       const touch = e.touches[0]
@@ -170,13 +175,16 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       // Only set panning true if zoomed in
       if (zoomLevel > 1) {
         setIsPanning(true)
-        e.preventDefault()
       }
     }
-  }, [isTouch, getDistance, getTouchCenter, getImageRelativeCoords, zoomLevel])
+  }, [isTouch, isImageModalOpen, getDistance, getTouchCenter, getImageRelativeCoords, zoomLevel])
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isTouch) return // Only work on touch devices
+    if (!isTouch || !isImageModalOpen) return // Only work on touch devices and when modal is open
+    
+    // Always prevent default to stop background interaction
+    e.preventDefault()
+    e.stopPropagation()
     
     if (e.touches.length === 2 && initialDistance > 0) {
       // Two-finger move: pinch-to-zoom
@@ -184,7 +192,6 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
       const scale = currentDistance / initialDistance
       const newZoom = Math.min(Math.max(initialZoom * scale, 0.5), 3)
       setZoomLevel(newZoom)
-      e.preventDefault()
     } else if (e.touches.length === 1 && zoomLevel > 1) {
       // Single-finger move on zoomed image: panning
       const touch = e.touches[0]
@@ -200,13 +207,16 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
         
         setLastTouchPosition({ x: touch.clientX, y: touch.clientY })
         setIsPanning(true)
-        e.preventDefault()
       }
     }
-  }, [isTouch, getDistance, initialDistance, initialZoom, zoomLevel, lastTouchPosition])
+  }, [isTouch, isImageModalOpen, getDistance, initialDistance, initialZoom, zoomLevel, lastTouchPosition])
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!isTouch) return // Only work on touch devices
+    if (!isTouch || !isImageModalOpen) return // Only work on touch devices and when modal is open
+    
+    // Always prevent default to stop background interaction
+    e.preventDefault()
+    e.stopPropagation()
     
     if (e.touches.length < 2) {
       setInitialDistance(0)
@@ -216,7 +226,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
     if (e.touches.length === 0) {
       setIsPanning(false)
     }
-  }, [isTouch])
+  }, [isTouch, isImageModalOpen])
 
   // Get related projects for "More Projects" section
   const getRelatedProjects = (currentProject: Project, projects: Project[]) => {
@@ -252,8 +262,35 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
 
   useEffect(() => {
     // Scroll to the top when the component mounts or project changes
-    window.scrollTo(0, 0)
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0)
+    }
   }, [project])
+
+  // Prevent body scroll when image modal is open
+  useEffect(() => {
+    if (isImageModalOpen && typeof window !== 'undefined') {
+      // Store original body style
+      const originalStyle = window.getComputedStyle(document.body).overflow
+      const currentScrollY = window.scrollY
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+      document.body.style.top = `-${currentScrollY}px`
+      
+      return () => {
+        // Restore body scroll
+        document.body.style.overflow = originalStyle
+        document.body.style.position = ''
+        document.body.style.width = ''
+        const scrollY = document.body.style.top
+        document.body.style.top = ''
+        window.scrollTo(0, parseInt(scrollY || '0') * -1)
+      }
+    }
+  }, [isImageModalOpen])
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
@@ -436,10 +473,16 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4"
           onClick={closeImageModal}
+          onTouchStart={(e) => e.preventDefault()}
+          onTouchMove={(e) => e.preventDefault()}
+          onTouchEnd={(e) => e.preventDefault()}
         >
           <div
             className="relative bg-white dark:bg-[#111111] rounded-xl shadow-xl border border-gray-200/50 dark:border-[#333333]/50 max-w-[90vw] max-h-[90vh] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
           >
             {/* Modal Header with Controls */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-[#333333]">
@@ -490,6 +533,7 @@ export default function ProjectDetail({ project, onBack, allProjects = [], onPro
                 className="flex items-center justify-center w-full h-full"
                 style={{ minHeight: '300px' }}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   ref={imageRef}
                   src={selectedImageSrc}
