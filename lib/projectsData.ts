@@ -23,7 +23,7 @@ export const projects: Project[] = [
     category: "Mobile Application",
     description:
       "A mobile app that allows students and staff to report, track, and recover lost-and-found items on campus.",
-    image: "/placeholder.svg?height=200&width=300",
+    image: "/project/ifind/ifindCover.png?height=400&width=300",
     tags: ["Mobile App", "Lost and Found", "Campuswide"],
     client: "Academic Project - CNSC PICRO",
     timeline: "4 months (2023)",
@@ -38,7 +38,10 @@ export const projects: Project[] = [
       "Clean, student-friendly UI",
     ],
     technologies: ["Android Studio", "Java", "Figma", "Balsamiq"],
-    gallery: ["/placeholder.svg?height=400&width=600", "/placeholder.svg?height=400&width=600"],
+    gallery: [
+      "/project/ifind/ifindCover.png?height=400&width=300", 
+      "/project/ifind/Loginifind.png?height=400&width=300", 
+      "/project/ifind/Ssifind.png?height=400&width=300"],
   },
   {
     id: 2,
@@ -143,4 +146,75 @@ export const projects: Project[] = [
       "/project/ttweb/tinytreasures2.jpeg?height=400&width=300"],
     liveUrl: "https://tiny-treasures-web.vercel.app/",
   },
+  {
+    id: 6,
+    title: "ProjectFlow: Landing Page & Navigation",
+    category: "Web Application",
+    description: "Landing page and navigation design for Projectflow, a construction management system aimed at streamlining project workflows and team collaboration.",
+    image: "/project/projectflow/LP_cover.svg",
+    tags: ["UI/UX", "Mobile", "Web", "Construction Management"],
+    client: "Internship Project",
+    timeline: "2 weeks (April, 2025)",
+    role: "UI/UX Designer",
+    overview:
+      "Designed both web and mobile experiences for Projectflow, a construction management system. " +
+      "The focus was on creating an intuitive landing page that highlights the system’s core features and a navigation structure that ensures users can seamlessly move between different modules of the platform. The design emphasizes usability for professionals in the construction industry, balancing clarity, accessibility, and modern aesthetics.",
+    features: [
+      "Responsive landing page tailored for desktop and mobile",
+      "Clear value proposition with hero section highlighting key features",
+      "Easy-to-use global navigation for quick access to modules",
+      "Mobile-friendly hamburger menu with smooth transitions",
+      "Consistent design system ensuring uniform UI elements across pages",
+      "Call-to-action buttons guiding users to sign up or explore features",
+      "Information hierarchy optimized for construction professionals",
+    ],
+    technologies: ["Figma", "Canva"],
+    gallery: [
+      "/project/projectflow/LP_cover.svg",
+      "/project/projectflow/web_LP.png?height=400&width=300",  
+      "/project/projectflow/LP_cons.png?height=400&width=300",
+      "/project/projectflow/LP_dis.png?height=400&width=300",  
+      "/project/projectflow/mob_LP.png?height=400&width=300",
+      "/project/projectflow/LP_cons_mob.png?height=400&width=300",  
+      "/project/projectflow/LP_dis_mob.png?height=400&width=300"],
+    //liveUrl: "https://tiny-treasures-web.vercel.app/",
+  },
+  {
+    id: 7,
+    title: "Projectflow: Social Media Campaign",
+    category: "Creative Design",
+    description: "Visual design for Projectflow’s social media campaign, including image posts, carousels, and short videos for engagement and brand awareness",
+    image: "/project/visuals/Ccover.png?height=200&width=300",
+    tags: ["Creative", "Social Media", "A/B Testing", "Branding"],
+    client: "Internship Project",
+    timeline: "February - March, 2025",
+    role: "Creative Designer",
+    overview:
+      "Created a social media campaign for Projectflow to boost awareness and highlight the system's features. The campaign materials included " +
+      "image posts, carousels, and short video clips designed for maximum engagement. Each asset was tailored to communicate Projectflow's value to construction professionals, combining clean visuals, industry-relevant imagery, and compelling call-to-actions. A/B testing was applied to refine posting strategies and optimize performance.\n\n" +
+      "DISCLAIMER:\n\n" +
+      "Due to confidentiality agreements, all creative designs are owned by the respective company. Only selected previews are shared here.",
+    features: [
+      "Image posts designed for brand consistency and clarity",
+      "Carousel posts showcasing different system features",
+      "Short video clips optimized for Instagram, and Facebook",
+      "Engagement-driven call-to-action graphics",
+      "A/B testing of visuals and captions to identify high-performing content",
+      "Content tailored for professional yet approachable tone",
+      "Optimized formatting for multiple platforms (mobile-first approach)",
+      "Campaign task management and ticketing using ClickUp",
+    ],
+    technologies: ["Canva", "ClickUp", "ElevenLabs", "Davinci AI", "Google Docs"],
+    gallery: [
+      "/project/visuals/smc1.jpeg?height=400&width=300",  
+      "/project/visuals/smc2.jpeg?height=400&width=300",
+      "/project/visuals/smc3.jpeg?height=400&width=300",  
+      "/project/visuals/smc4.jpeg?height=400&width=300",
+      "/project/visuals/v1.png?height=400&width=300",  
+      "/project/visuals/v2.png?height=400&width=300",
+      "/project/visuals/v3.png?height=400&width=300",
+      "/project/visuals/v4.png?height=400&width=300"],
+    //liveUrl: "https://tiny-treasures-web.vercel.app/",
+  },
+  
 ] 
