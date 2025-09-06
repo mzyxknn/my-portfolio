@@ -9,7 +9,7 @@ interface TopNavigationProps {
   setActiveSection: (section: string) => void
 }
 
-const roles = ["UI/UX Designer", "Software Developer", "Graphics Designer"]
+const roles = ["UI/UX Designer", "Software Developer", "Graphics Designer", "Technical Support"]
 
 export default function TopNavigation({ activeSection, setActiveSection }: TopNavigationProps) {
   const { theme, toggleTheme } = useTheme()

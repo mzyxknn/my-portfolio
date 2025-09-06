@@ -212,5 +212,35 @@ export const projects: Project[] = [
       "/project/visuals/v4.png?height=400&width=300"],
     //liveUrl: "https://tiny-treasures-web.vercel.app/",
   },
+  {
+    id: 8,
+    title: "FitTrakr: Fitness Tracking App",
+    category: "UI/UX Design",
+    description: "A mobile app that helps users manage gym subscriptions, track workout routines, and monitor fitness progress.",
+    image: "/project/fittrackr/fitCover.png?height=200&width=300",
+    tags: ["User Interface Design", "User Experience Design", "Design Thinking"],
+    client: "Personal Project",
+    timeline: "February, 2025",
+    role: "UI/UX Designer",
+    overview:
+      "Designed a simple mobile app called FitTrakr to simplify how users manage fitness and subscriptions. " +
+      "The platform enables users to keep track of gym memberships, monitor workout routines, and visualize progress metrics in an intuitive interface."
+      ,
+    features: [
+      "Track gym subscriptions",
+      "Progress tracking with clear visual indicators",
+      "Reminders and alerts for renewals and workouts",
+      "Workout routine management",
+      "Clean and motivating UI tailored to fitness enthusiasts",
+      "User-friendly workflows for easy adoption",
+    ],
+    technologies: ["Figma"],
+    gallery: [
+      "/project/fittrackr/fitCover.png?height=400&width=300",  
+      "/project/fittrackr/fithome.png?height=400&width=300",
+      "/project/fittrackr/fitSs.png?height=400&width=300",],
+    //liveUrl: "https://tiny-treasures-web.vercel.app/",
+  },
+  
   
 ] 
