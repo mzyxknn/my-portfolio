@@ -29,7 +29,7 @@ export default function Sidebar() {
     { icon: Instagram, href: "https://www.instagram.com/mcbn_prcll/", label: "Instagram" },
   ]
 
-  const tags = ["UI/UX Designer", "Software Developer", "Graphics Designer"]
+  const tags = ["UI/UX Designer", "Software Developer", "Graphics Designer", , "Technical Support"]
 
   const languageSkills = [
     { name: "English", level: "Intermediate", percentage: 85 },
@@ -51,7 +51,7 @@ export default function Sidebar() {
   const handleResumeClick = () => {
     if (typeof window !== 'undefined') {
       // Open PDF in new tab for viewing
-      window.open("/Resume_Precilla, Mc Benny Copper R.pdf", "_blank")
+      window.open("/Resume_Precilla, Mc Benny Copper.pdf", "_blank")
       
       // Optionally trigger download as well
       // Uncomment the lines below if you want automatic download
@@ -76,8 +76,8 @@ export default function Sidebar() {
           />
         </div>
         <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Mc Benny Copper R. Precilla</h2>
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-1">UI/UX Designer & Software Developer</p>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Marcelo Green Village, Parañaque, Metro Manila, 1700</p>
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-1">Open for Junior or Entry Level Position</p>{/*UI/UX Designer • Software Developer*/}
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Talisay, Camarines Norte, Philippines, 4602</p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 justify-center mb-4">
@@ -167,10 +167,12 @@ export default function Sidebar() {
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">About Me</h3>
                 </div>
                 <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I am a BS Information Technology graduate from Camarines Norte State College with hands-on experience
+                  BS Information Technology graduate with a solid foundation in IT, adaptable to diverse challenges, 
+                  and eager to apply skills and knowledge in an entry-level role.
+                  {/*I am a BS Information Technology graduate from Camarines Norte State College with hands-on experience
                   in software development and UI/UX design, having built functional applications and created wireframes,
                   prototypes, and visual designs during academic projects and internship. A fast learner with a
-                  proactive mindset, I&apos;m eager to grow and contribute to industry-level projects in both fields.
+                  proactive mindset, I&apos;m eager to grow and contribute to industry-level projects in both fields.*/}
                 </p>
               </div>
 
@@ -180,9 +182,10 @@ export default function Sidebar() {
                   <h4 className="font-medium text-gray-900 dark:text-white text-sm">Professional Focus</h4>
                 </div>
                 <ul className="text-xs text-gray-600 dark:text-gray-300 space-y-1">
-                  <li>• Designing intuitive and user-centered digital experiences across mobile and web platforms.</li>
-                  <li>• Building full-stack software solutions using modern technologies and frameworks.</li>
-                  <li>• Designing visually compelling graphics and branding materials for digital and print media.</li>
+                  <li>• Creating user-centered digital solutions</li>
+                  <li>• Developing modern software applications</li>
+                  <li>• Designing impactful visuals and branding</li>
+                  <li>• Delivering reliable technical support</li>
                   {/*<li>• Collaborating closely with cross-functional Agile teams to deliver functional, scalable applications with user-centered design and technical alignment.</li>
                   <li>• Collaborating closely with cross-functional Agile teams to ensure design aligns with sprint goals and technical feasibility.</li>
                   <li>• Collaborating in agile teams to deliver functional, scalable applications with clarity and structure.</li>
@@ -245,10 +248,22 @@ export default function Sidebar() {
               </div>
 
               <div className="flex items-start gap-2">
-                <MapPin size={14} className="text-gray-500 dark:text-gray-400 mt-0.5" />
+                <div className="flex-shrink-0">
+                  <MapPin size={14} className="text-gray-500 dark:text-gray-400 mt-0.5" />
+                </div>
                 <div>
-                  <p className="text-xs font-medium text-gray-900 dark:text-white">Location</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-300">Marcelo Green Village, Parañaque, Metro Manila, 1700</p>
+                  <p className="text-xs font-medium text-gray-900 dark:text-white">Current Address</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300">Talisay, Camarines Norte, Philippines, 4602</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2">
+                <div className="flex-shrink-0">
+                  <MapPin size={14} className="text-gray-500 dark:text-gray-400 mt-0.5" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-gray-900 dark:text-white">Secondary Address</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300">Donna St. 1707 L3 B2, Greenvale 1, Marcelo Green Village, Parañaque, Metro Manila, 1700</p>
                 </div>
               </div>
 
