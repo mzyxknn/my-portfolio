@@ -271,7 +271,7 @@ export default function Sidebar() {
                 <Clock size={14} className="text-gray-500 dark:text-gray-400 mt-0.5" />
                 <div>
                   <p className="text-xs font-medium text-gray-900 dark:text-white">Working Hours</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-300">Monday - Friday, 9am - 5pm PST</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300">Monday - Friday, flexible hours (PST)</p>
                 </div>
               </div>
 
@@ -280,7 +280,7 @@ export default function Sidebar() {
                 <div>
                   <p className="text-xs font-medium text-gray-900 dark:text-white">Availability</p>
                   <div className="flex flex-wrap gap-1 mt-1">
-                    {["WFH", "Remote", "On-site"].map((type) => (
+                    {["WFH","Hybrid", "Remote", "On-site"].map((type) => (
                       <span
                         key={type}
                         className="px-2 py-1 text-xs bg-blue-100 dark:bg-[#333333] text-blue-700 dark:text-blue-300 rounded-lg"

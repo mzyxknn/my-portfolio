@@ -7,11 +7,11 @@ export default function SkillsSection() {
   const skillCategories = [
     {
       title: "Design Tools",
-      skills: ["Figma", "Balsamiq", "Illustrator", "Photoshop", "Canva", "Framer"],
+      skills: ["Figma", "Balsamiq", "Miro", "Illustrator", "Photoshop", "Canva"],
     },
     {
       title: "Development",
-      skills: ["HTML/CSS", "JavaScript", "Python", "React", "TypeScript", "Tailwind CSS", "Java", "C#", "SQL", "NoSQL"],
+      skills: ["HTML/CSS", "JavaScript", "Python", "Reactjs", "Nextjs", "TypeScript", "Tailwind CSS", "Java", "C#", "MySQL", "NoSQL"],
     },
     {
       title: "Platforms",
@@ -41,7 +41,7 @@ export default function SkillsSection() {
     },
     {
       title: "Soft Skills",
-      skills: ["Analytical thinking", "Communication", "Adaptability", "Detail-Oriented", "Teamwork", "Leadership", "Time Management", "Curiosity"],
+      skills: ["Analytical thinking", "Communication", "Adaptability", "Detail-Oriented", "Collaboration", "Leadership", "Time Management", "Curiosity"],
     },
   ]
 
