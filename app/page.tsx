@@ -69,6 +69,7 @@ export default function Portfolio() {
   }
 
   const handleProjectClick = (project: Project, showAllState: boolean) => {
+    console.log('Project clicked:', project.id, project.title) // Debug log
     setSelectedProject(project)
     setClickedProjectId(project.id)
     setSavedShowAllState(showAllState) // Save the current showAll state
@@ -82,18 +83,58 @@ export default function Portfolio() {
       
       // If we have a clicked project ID, scroll to that specific project
       if (clickedProjectId && typeof window !== 'undefined') {
-        setTimeout(() => {
+        // Multiple attempts to ensure scroll works reliably
+        const attemptScroll = (attempt = 1) => {
           const projectElement = document.getElementById(`project-${clickedProjectId}`)
+          console.log(`Scroll attempt ${attempt} for project:`, clickedProjectId, projectElement) // Debug log
+          
           if (projectElement) {
-            const topNavHeight = 72
-            const elementTop = projectElement.offsetTop - topNavHeight - 100 // Extra margin for better positioning
+            // Use scrollIntoView for better cross-platform compatibility
+            const isMobile = window.innerWidth <= 768
+            const topOffset = isMobile ? 80 : 90 // Different offsets for mobile/desktop
             
-            window.scrollTo({
-              top: elementTop,
-              behavior: "smooth"
-            })
+            // Calculate scroll position manually for better control
+            const rect = projectElement.getBoundingClientRect()
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+            const elementTop = rect.top + scrollTop - topOffset
+            
+            console.log('Scroll calculation:', { 
+              projectId: clickedProjectId,
+              isMobile, 
+              topOffset,
+              rect: rect.top, 
+              scrollTop, 
+              elementTop,
+              windowWidth: window.innerWidth
+            }) // Debug log
+            
+            // Use scrollTo with fallback to scrollIntoView
+            try {
+              window.scrollTo({
+                top: Math.max(0, elementTop),
+                behavior: "smooth"
+              })
+            } catch (e) {
+              // Fallback for older browsers or mobile issues
+              projectElement.scrollIntoView({ 
+                behavior: "smooth", 
+                block: "center",
+                inline: "nearest"
+              })
+            }
+          } else if (attempt < 3) {
+            // Retry if element not found (may still be rendering)
+            console.log(`Project element not found, retrying... (attempt ${attempt})`)
+            setTimeout(() => attemptScroll(attempt + 1), 100)
+          } else {
+            console.log('Project element not found after 3 attempts:', `project-${clickedProjectId}`)
           }
-        }, 200) // Additional delay to ensure projects section is rendered
+        }
+        
+        // Use requestAnimationFrame for better timing
+        requestAnimationFrame(() => {
+          setTimeout(() => attemptScroll(), 50)
+        })
       }
     }, 100)
   }
