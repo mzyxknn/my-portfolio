@@ -50,22 +50,42 @@ export default function ExperienceSection() {
   ]
 
   return (
-    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit"
+    >
       <div className="p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-blue-100 dark:bg-[#333333]/30 rounded-xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex items-center gap-3 mb-6"
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="p-2 bg-blue-100 dark:bg-[#333333]/30 rounded-xl"
+          >
             <Briefcase size={20} className="text-blue-600 dark:text-blue-400" />
-          </div>
+          </motion.div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Experience</h2>
-        </div>
+        </motion.div>
 
-        <div className="space-y-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="space-y-6"
+        >
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
               className="relative pl-6 border-l-2 border-gray-200 dark:border-[#333333] last:border-l-0 pb-6 last:pb-0"
             >
               <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-500 rounded-full border-4 border-white dark:border-[#111111]"></div>
@@ -80,35 +100,53 @@ export default function ExperienceSection() {
 
               <p className="text-gray-600 dark:text-gray-300 mb-3 text-sm leading-relaxed">{exp.description}</p>
 
-              <div className="mb-3">
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                className="mb-3"
+              >
                 <h4 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Key Achievements</h4>
                 <ul className="space-y-1">
                   {exp.achievements.map((achievement, i) => (
-                    <li key={i} className="flex items-start gap-2">
+                    <motion.li 
+                      key={i} 
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 0.8 + index * 0.1 + i * 0.05 }}
+                      className="flex items-start gap-2"
+                    >
                       <CheckCircle size={14} className="text-green-500 mt-0.5 flex-shrink-0" />
                       <span className="text-xs text-gray-600 dark:text-gray-300">{achievement}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.0 + index * 0.1 }}
+              >
                 <h4 className="font-medium text-gray-900 dark:text-white mb-2 text-sm">Technologies & Skills</h4>
                 <div className="flex flex-wrap gap-1">
-                  {exp.skills.map((skill) => (
-                    <span
+                  {exp.skills.map((skill, skillIndex) => (
+                    <motion.span
                       key={skill}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 1.1 + index * 0.1 + skillIndex * 0.05 }}
                       className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg"
                     >
                       {skill}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }

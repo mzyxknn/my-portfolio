@@ -93,30 +93,53 @@ export default function CredentialsSection() {
   ]
 
   return (
-    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit"
+    >
       <div className="p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-purple-100 dark:bg-[#333333]/30 rounded-xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex items-center gap-3 mb-6"
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="p-2 bg-purple-100 dark:bg-[#333333]/30 rounded-xl"
+          >
             <Award size={24} className="text-purple-600 dark:text-purple-400" />
-          </div>
+          </motion.div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">Credentials</h2>
-        </div>
+        </motion.div>
 
         {/* Professional Certifications */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="mb-6"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex items-center gap-2 mb-4"
+          >
             <Award size={20} className="text-cyan-600 dark:text-cyan-400" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Professional Certifications</h3>
-          </div>
+          </motion.div>
           <div className="space-y-3">
             {certifications.map((cert, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 + index * 0.05 }}
                 className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#333333]/50 rounded-xl border border-gray-200/50 dark:border-[#333333]/30"
               >
                 <div className="w-12 h-12 bg-gray-200 dark:bg-[#333333] rounded-lg flex items-center justify-center overflow-hidden">
@@ -134,7 +157,7 @@ export default function CredentialsSection() {
                     {cert.issuer} • {cert.year}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -143,17 +166,25 @@ export default function CredentialsSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 1.0 }}
           className="mb-6"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 1.1 }}
+            className="flex items-center gap-2 mb-4"
+          >
             <GraduationCap size={20} className="text-cyan-600 dark:text-cyan-400" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Education</h3>
-          </div>
+          </motion.div>
           <div className="space-y-3">
             {education.map((edu, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
                 className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#333333]/50 rounded-xl border border-gray-200/50 dark:border-[#333333]/30"
               >
                 <div className="w-12 h-12 bg-gray-200 dark:bg-[#333333] rounded-lg flex items-center justify-center overflow-hidden">
@@ -171,7 +202,7 @@ export default function CredentialsSection() {
                     {edu.school} • {edu.period}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -180,24 +211,32 @@ export default function CredentialsSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 1.4 }}
         >
-          <div className="flex items-center gap-2 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
+            className="flex items-center gap-2 mb-4"
+          >
             <Award size={20} className="text-cyan-600 dark:text-cyan-400" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Skills & Expertise</h3>
-          </div>
+          </motion.div>
           <div className="flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <span
+            {skills.map((skill, index) => (
+              <motion.span
                 key={skill}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 1.6 + index * 0.05 }}
                 className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-[#333333]/30"
               >
                 {skill}
-              </span>
+              </motion.span>
             ))}
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }

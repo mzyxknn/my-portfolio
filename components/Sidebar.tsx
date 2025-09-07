@@ -29,7 +29,7 @@ export default function Sidebar() {
     { icon: Instagram, href: "https://www.instagram.com/mcbn_prcll/", label: "Instagram" },
   ]
 
-  const tags = ["UI/UX Designer", "Software Developer", "Graphics Designer", , "Technical Support"]
+  const tags = ["UI/UX Designer", "Software Developer", "Graphics Designer", "Technical Support"]
 
   const languageSkills = [
     { name: "English", level: "Intermediate", percentage: 85 },
@@ -63,10 +63,25 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit sticky top-[56px]">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className="bg-white dark:bg-[#111111] rounded-2xl shadow-lg border border-gray-200/50 dark:border-[#333333]/50 h-fit sticky top-[56px]"
+    >
       {/* Profile Section */}
-              <div className="p-6 text-center border-b border-gray-200/50 dark:border-[#333333]/50">
-        <div className="w-32 h-32 mx-auto mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="p-6 text-center border-b border-gray-200/50 dark:border-[#333333]/50"
+      >
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="w-32 h-32 mx-auto mb-4 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700"
+        >
           <Image
             src="/profile.jpg?height=128&width=128"
             alt="Mc Benny Copper R. Precilla"
@@ -74,39 +89,66 @@ export default function Sidebar() {
             height={128}
             className="w-full h-full object-cover object-top"
           />
-        </div>
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Mc Benny Copper R. Precilla</h2>
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-1">Open for Junior or Entry Level Position</p>{/*UI/UX Designer • Software Developer*/}
-        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Talisay, Camarines Norte, Philippines, 4602</p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Mc Benny Copper R. Precilla</h2>
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-1">Open for Junior or Entry Level Position</p>{/*UI/UX Designer • Software Developer*/}
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Talisay, Camarines Norte, Philippines, 4602</p>
+        </motion.div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 justify-center mb-4">
-          {tags.map((tag) => (
-            <span
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex flex-wrap gap-2 justify-center mb-4"
+        >
+          {tags.map((tag, index) => (
+            <motion.span
               key={tag}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
               className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-[#333333] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-[#444444] transition-colors cursor-pointer"
             >
               {tag}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-2 mb-4">
-          {socialLinks.map(({ icon: Icon, href, label }) => (
-            <a
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="flex justify-center gap-2 mb-4"
+        >
+          {socialLinks.map(({ icon: Icon, href, label }, index) => (
+            <motion.a
               key={label}
               href={href}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
               className="p-2 rounded-lg bg-gray-100 dark:bg-[#333333] hover:bg-gray-200 dark:hover:bg-[#444444] transition-colors"
               aria-label={label}
             >
               <Icon size={16} className="text-gray-600 dark:text-gray-300" />
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
+          className="flex gap-2"
+        >
           <button 
             onClick={handleResumeClick}
             className="flex-1 flex items-center justify-center gap-1 py-2 px-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-lg transition-colors"
@@ -121,12 +163,22 @@ export default function Sidebar() {
             <Send size={14} />
             Email
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Tab Navigation */}
-      <div className="p-4">
-        <div className="flex rounded-xl bg-gray-100 dark:bg-[#333333] p-1 mb-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="p-4"
+      >
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex rounded-xl bg-gray-100 dark:bg-[#333333] p-1 mb-4"
+        >
           <button
             onClick={() => setActiveTab("about")}
             className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
@@ -149,14 +201,14 @@ export default function Sidebar() {
             <Mail size={14} />
             Contact
           </button>
-        </div>
+        </motion.div>
 
         {/* Tab Content */}
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           className="space-y-4"
         >
           {activeTab === "about" && (
@@ -294,7 +346,7 @@ export default function Sidebar() {
             </div>
           )}
         </motion.div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }

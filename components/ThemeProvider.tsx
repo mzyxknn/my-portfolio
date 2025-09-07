@@ -14,19 +14,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light")
-  const [isClient, setIsClient] = useState(false)
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Only try to access localStorage on the client side
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem("theme") as Theme) || "light"
+    }
+    return "light"
+  })
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setIsClient(true)
-    const savedTheme = localStorage.getItem("theme") as Theme
-    if (savedTheme) {
-      setTheme(savedTheme)
-    }
+    setMounted(true)
+    // Sync with the actual theme that was applied by the script in layout.tsx
+    const isDark = document.documentElement.classList.contains('dark')
+    const currentTheme = isDark ? 'dark' : 'light'
+    setTheme(currentTheme)
   }, [])
 
   useEffect(() => {
-    if (!isClient) return
+    if (!mounted) return
     
     localStorage.setItem("theme", theme)
     if (theme === "dark") {
@@ -34,10 +40,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       document.documentElement.classList.remove("dark")
     }
-  }, [theme, isClient])
+  }, [theme, mounted])
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"))
+  }
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return <ThemeContext.Provider value={{ theme: "light", toggleTheme }}>{children}</ThemeContext.Provider>
   }
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>
