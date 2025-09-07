@@ -69,6 +69,7 @@ export const projects: Project[] = [
       "/project/botanica/botanica2.png?height=400&width=300",
       "/project/botanica/botanica3.png?height=400&width=300",
     ],
+    liveUrl: "https://www.figma.com/design/o6NCiHaXh0QDA2nEPq8R3F/Botanica--Smart-Plant-Care-?node-id=1-2&t=7LmzZ9b9FePaXPTX-1",
   },
   {
     id: 3,
@@ -120,6 +121,7 @@ export const projects: Project[] = [
       "/project/murphy/murph3.png?height=400&width=300",
       "/project/murphy/murph4.png?height=400&width=300",
     ],
+    liveUrl: "https://drive.usercontent.google.com/download?id=1DaQ7kc67-UaEa9ZwaF3eCV26i5I__x04&export=download&authuser=0",
   },
   {
     id: 5,
